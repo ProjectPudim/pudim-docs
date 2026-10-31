@@ -1,5 +1,5 @@
 ---
-cover: ../../../assets/pudim-banner.png
+cover: ../.gitbook/assets/pudim-banner.png
 coverY: 0
 ---
 
@@ -13,31 +13,31 @@ No Fluxer, bots recebem o conteúdo das mensagens dos canais que conseguem ver. 
 
 ## Resumo
 
-- O Pudim **lê as mensagens** apenas para detectar comandos e menções a ele. **Ele não guarda o conteúdo das mensagens** em banco de dados.
-- O Pudim guarda somente **configurações do servidor, advertências e menus de cargos por reação**, além de IDs necessários para essas funções.
-- O Pudim **não envia DMs**, **não usa voz** e **não grava áudio**.
-- O Pudim **não vende** dados e **não os usa para anúncios ou perfis**.
-- Você pode pedir a remoção dos seus dados a qualquer momento (veja a seção 10).
+* O Pudim **lê as mensagens** apenas para detectar comandos e menções a ele. **Ele não guarda o conteúdo das mensagens** em banco de dados.
+* O Pudim guarda somente **configurações do servidor, advertências e menus de cargos por reação**, além de IDs necessários para essas funções.
+* O Pudim **não envia DMs**, **não usa voz** e **não grava áudio**.
+* O Pudim **não vende** dados e **não os usa para anúncios ou perfis**.
+* Você pode pedir a remoção dos seus dados a qualquer momento (veja a seção 10).
 
 ## 1. Quais dados o Pudim guarda
 
 ### 1.1 Banco de dados (MongoDB)
 
-| O que é guardado | Dados | Para quê | Por quanto tempo |
-| --- | --- | --- | --- |
-| **Configuração do servidor** | ID do servidor, prefixo, cargos do cargo automático (ID do cargo e se está ativo), regras de ações automáticas por advertência (quantidade, tipo de ação, duração, ID do canal) e ID do canal de logs de advertências | Fazer o bot funcionar do jeito que o servidor configurou | Enquanto o servidor usar o bot, ou até pedido de remoção |
-| **Advertências** | ID do servidor, ID do membro advertido, ID do moderador, **motivo escrito pelo moderador**, ID da advertência e data | Histórico de moderação (`warn`, `warnings`, `unwarn`, `clearwarns`) e ações automáticas | Até um moderador remover a advertência (`unwarn` ou `clearwarns`), ou até pedido de remoção |
-| **Menus de cargos por reação** | ID da mensagem, ID do canal, ID do servidor, ID de quem criou o menu, emojis usados e qual cargo cada emoji dá | Entregar cargos quando alguém reage | Até o menu ser removido pelo servidor, ou até pedido de remoção |
-| **Preferência de idioma** | ID do usuário e idioma escolhido (padrão: português do Brasil) | Responder no idioma certo | Até pedido de remoção |
+| O que é guardado               | Dados                                                                                                                                                                                                                 | Para quê                                                                                | Por quanto tempo                                                                            |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| **Configuração do servidor**   | ID do servidor, prefixo, cargos do cargo automático (ID do cargo e se está ativo), regras de ações automáticas por advertência (quantidade, tipo de ação, duração, ID do canal) e ID do canal de logs de advertências | Fazer o bot funcionar do jeito que o servidor configurou                                | Enquanto o servidor usar o bot, ou até pedido de remoção                                    |
+| **Advertências**               | ID do servidor, ID do membro advertido, ID do moderador, **motivo escrito pelo moderador**, ID da advertência e data                                                                                                  | Histórico de moderação (`warn`, `warnings`, `unwarn`, `clearwarns`) e ações automáticas | Até um moderador remover a advertência (`unwarn` ou `clearwarns`), ou até pedido de remoção |
+| **Menus de cargos por reação** | ID da mensagem, ID do canal, ID do servidor, ID de quem criou o menu, emojis usados e qual cargo cada emoji dá                                                                                                        | Entregar cargos quando alguém reage                                                     | Até o menu ser removido pelo servidor, ou até pedido de remoção                             |
+| **Preferência de idioma**      | ID do usuário e idioma escolhido (padrão: português do Brasil)                                                                                                                                                        | Responder no idioma certo                                                               | Até pedido de remoção                                                                       |
 
 ### 1.2 Cache temporário (Valkey/Redis)
 
 O Pudim usa um cache para responder mais rápido. Ele guarda cópias de dados que já existem no banco, **por pouco tempo**:
 
-| Dado em cache | Duração |
-| --- | --- |
-| Prefixo do servidor | 1 hora |
-| Idioma do usuário | 5 minutos |
+| Dado em cache               | Duração                                                               |
+| --------------------------- | --------------------------------------------------------------------- |
+| Prefixo do servidor         | 1 hora                                                                |
+| Idioma do usuário           | 5 minutos                                                             |
 | Estado de menus interativos | 10 minutos (menus temporários) ou 1 hora (menus de cargos por reação) |
 
 O cache também é usado para avisar o bot de que o prefixo de um servidor mudou.
@@ -48,20 +48,20 @@ Para funcionar, o Pudim recebe informações do Fluxer, como ID e nome de usuár
 
 ## 2. Conteúdo de mensagens
 
-- O Pudim lê as mensagens recebidas para saber se começam com o prefixo de um comando ou se mencionam o bot. Depois disso, a mensagem **não é salva**.
-- As mensagens **não são armazenadas** em banco de dados nem enviadas a serviços externos.
-- **Exceção, o comando `purge`:** ao apagar mensagens em massa, o Pudim lê as mensagens selecionadas e monta um arquivo de texto de backup (data, nome de usuário, conteúdo e links de anexos). Esse arquivo é **enviado no próprio canal** onde o comando foi usado, para a equipe de moderação. **O Pudim não guarda uma cópia desse arquivo.** A partir daí, o arquivo fica sob controle do servidor, e quem tiver acesso ao canal poderá vê-lo.
-- **Comando `massrole`:** para aplicar um cargo a vários membros, o Pudim busca temporariamente a lista de membros do servidor (até 1000). A lista é usada só durante a execução do comando. **Ela não é salva, exportada nem compartilhada.**
+* O Pudim lê as mensagens recebidas para saber se começam com o prefixo de um comando ou se mencionam o bot. Depois disso, a mensagem **não é salva**.
+* As mensagens **não são armazenadas** em banco de dados nem enviadas a serviços externos.
+* **Exceção, o comando `purge`:** ao apagar mensagens em massa, o Pudim lê as mensagens selecionadas e monta um arquivo de texto de backup (data, nome de usuário, conteúdo e links de anexos). Esse arquivo é **enviado no próprio canal** onde o comando foi usado, para a equipe de moderação. **O Pudim não guarda uma cópia desse arquivo.** A partir daí, o arquivo fica sob controle do servidor, e quem tiver acesso ao canal poderá vê-lo.
+* **Comando `massrole`:** para aplicar um cargo a vários membros, o Pudim busca temporariamente a lista de membros do servidor (até 1000). A lista é usada só durante a execução do comando. **Ela não é salva, exportada nem compartilhada.**
 
 ## 3. Registro de entrada e saída de servidores
 
 Quando o Pudim entra ou sai de um servidor, ele envia um aviso para um **canal privado de logs do desenvolvedor**, com:
 
-- nome e ID do servidor;
-- quantidade de membros;
-- data de criação do servidor;
-- nome de usuário e ID do dono do servidor;
-- ícone do servidor.
+* nome e ID do servidor;
+* quantidade de membros;
+* data de criação do servidor;
+* nome de usuário e ID do dono do servidor;
+* ícone do servidor.
 
 Isso serve para acompanhar o crescimento do bot e investigar problemas. O aviso é enviado para a equipe do Pudim, **não** para o servidor.
 
@@ -69,11 +69,11 @@ Isso serve para acompanhar o crescimento do bot e investigar problemas. O aviso 
 
 O Pudim se conecta aos serviços abaixo. **Nenhum deles recebe mensagens, IDs de usuários ou dados de servidores.**
 
-| Serviço | Para quê | O que é enviado |
-| --- | --- | --- |
-| **Fluxer** (API e gateway) | Funcionamento do bot na plataforma | O necessário para executar comandos (ver seção 1.3) |
-| **nekos.best** (`nekos.best/api/v2`) | Buscar imagens animadas dos comandos de interação (`hug`, `pat`, `slap` etc.) | Apenas o nome da ação. Como em qualquer conexão de internet, o serviço enxerga o IP do servidor onde o bot está hospedado |
-| **Hospedagem (Discloud)** e **provedores de banco de dados e cache** | Manter o bot no ar e guardar os dados da seção 1 | Os dados da seção 1, armazenados na infraestrutura deles |
+| Serviço                                                              | Para quê                                                                      | O que é enviado                                                                                                           |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Fluxer** (API e gateway)                                           | Funcionamento do bot na plataforma                                            | O necessário para executar comandos (ver seção 1.3)                                                                       |
+| **nekos.best** (`nekos.best/api/v2`)                                 | Buscar imagens animadas dos comandos de interação (`hug`, `pat`, `slap` etc.) | Apenas o nome da ação. Como em qualquer conexão de internet, o serviço enxerga o IP do servidor onde o bot está hospedado |
+| **Hospedagem (Discloud)** e **provedores de banco de dados e cache** | Manter o bot no ar e guardar os dados da seção 1                              | Os dados da seção 1, armazenados na infraestrutura deles                                                                  |
 
 Se passarmos a usar outro serviço externo, esta lista será atualizada.
 
@@ -87,18 +87,18 @@ O Pudim **não envia DMs** e não entra em contato com usuários por conta próp
 
 ## 7. O que não fazemos
 
-- Não vendemos, alugamos nem compartilhamos dados com anunciantes.
-- Não criamos perfis de usuários nem rastreamos você entre servidores.
-- Não exportamos listas de membros nem raspamos dados de comunidades.
-- Não coletamos dados sensíveis de propósito. Porém, o **motivo de uma advertência** é um texto livre escrito por moderadores. Peça aos moderadores do seu servidor que não coloquem dados pessoais sensíveis nele.
+* Não vendemos, alugamos nem compartilhamos dados com anunciantes.
+* Não criamos perfis de usuários nem rastreamos você entre servidores.
+* Não exportamos listas de membros nem raspamos dados de comunidades.
+* Não coletamos dados sensíveis de propósito. Porém, o **motivo de uma advertência** é um texto livre escrito por moderadores. Peça aos moderadores do seu servidor que não coloquem dados pessoais sensíveis nele.
 
 ## 8. Compartilhamento
 
 Seus dados só saem do Pudim nas situações abaixo:
 
-- para os provedores de infraestrutura da seção 4, que armazenam os dados em nosso nome;
-- quando a lei ou uma autoridade competente exigir;
-- para proteger a segurança do bot, de usuários ou de servidores contra abuso.
+* para os provedores de infraestrutura da seção 4, que armazenam os dados em nosso nome;
+* quando a lei ou uma autoridade competente exigir;
+* para proteger a segurança do bot, de usuários ou de servidores contra abuso.
 
 Dentro de um servidor, as advertências e os logs de moderação podem ser vistos por quem tem acesso aos canais e comandos de moderação daquele servidor.
 
@@ -110,10 +110,10 @@ Usamos medidas razoáveis para proteger os dados: o token do bot e as credenciai
 
 Você pode pedir:
 
-- **acesso** aos dados que temos sobre você;
-- **correção** de dados incorretos;
-- **exclusão** de dados, como advertências recebidas, preferência de idioma ou menus criados por você;
-- esclarecimentos sobre como tratamos seus dados.
+* **acesso** aos dados que temos sobre você;
+* **correção** de dados incorretos;
+* **exclusão** de dados, como advertências recebidas, preferência de idioma ou menus criados por você;
+* esclarecimentos sobre como tratamos seus dados.
 
 **Donos de servidores** também podem pedir a exclusão de toda a configuração do servidor.
 
@@ -133,4 +133,4 @@ Podemos atualizar esta política. A data de "Última atualização" no topo most
 
 ## 13. Contato
 
-- **Servidor de suporte:** <https://fluxer.gg/Ka4CXOqj>
+* **Servidor de suporte:** [https://fluxer.gg/Ka4CXOqj](https://fluxer.gg/Ka4CXOqj)

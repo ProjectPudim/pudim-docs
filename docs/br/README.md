@@ -1,5 +1,5 @@
 ---
-cover: ../../assets/pudim-banner.png
+cover: .gitbook/assets/pudim-banner.png
 coverY: 0
 ---
 
@@ -11,7 +11,7 @@ Aqui você encontra tudo o que precisa para colocar o Pudim no seu servidor e ap
 
 ## Primeiros passos
 
-1. **Adicione o Pudim ao seu servidor** pelo [link de convite](https://web.fluxer.app/oauth2/authorize?client_id=1562641741457141760&scope=bot&permissions=1099914669142).
+1. **Adicione o Pudim ao seu servidor** pelo [link de convite](https://web.fluxer.app/oauth2/authorize?client_id=1562641741457141760\&scope=bot\&permissions=1099914669142).
 2. **Use `p.help`** para ver todos os comandos. O prefixo padrão é `p.`.
 3. **Mude o prefixo**, se quiser, com `p.setprefix`.
 4. Precisa de ajuda? Entre no [servidor de suporte](https://fluxer.gg/Ka4CXOqj).
@@ -24,13 +24,13 @@ Você também pode me mencionar (`@Pudim`) para ver o prefixo do servidor.
 
 Ferramentas para manter a comunidade segura e organizada.
 
-| Recurso | Comandos |
-| --- | --- |
-| Punições | `ban`, `unban`, `softban`, `massban`, `kick`, `mute`, `unmute` |
-| Advertências | `warn`, `warnings`, `unwarn`, `clearwarns` |
-| Canais | `purge`, `lock`, `unlock`, `slowmode` |
-| Cargos | `addrole`, `removerole`, `massrole`, `autorole`, `reactionroles` |
-| Membros | `nick` |
+| Recurso      | Comandos                                                         |
+| ------------ | ---------------------------------------------------------------- |
+| Punições     | `ban`, `unban`, `softban`, `massban`, `kick`, `mute`, `unmute`   |
+| Advertências | `warn`, `warnings`, `unwarn`, `clearwarns`                       |
+| Canais       | `purge`, `lock`, `unlock`, `slowmode`                            |
+| Cargos       | `addrole`, `removerole`, `massrole`, `autorole`, `reactionroles` |
+| Membros      | `nick`                                                           |
 
 ### Utilidade
 
@@ -50,8 +50,8 @@ Para os comandos de cargos funcionarem, o cargo do Pudim precisa ficar **acima**
 
 Somos transparentes sobre os dados que usamos. Antes de usar o bot, leia:
 
-- [Termos de Serviço](legal/service.md)
-- [Política de Privacidade](legal/privacy.md)
+* [Termos de Serviço](legal/service.md)
+* [Política de Privacidade](legal/privacy.md)
 
 Em resumo: o Pudim lê mensagens só para detectar comandos, **não guarda o conteúdo delas**, não envia DMs e não usa voz.
 
