@@ -1,5 +1,5 @@
 ---
-cover: ../../../assets/pudim-banner.png
+cover: ../.gitbook/assets/pudim-banner.png
 coverY: 0
 ---
 
@@ -13,31 +13,31 @@ On Fluxer, bots receive the content of messages in the channels they can see. Th
 
 ## Summary
 
-- Pudim **reads messages** only to detect commands and mentions of the bot. **It does not store message content** in any database.
-- Pudim only stores **server settings, warnings and reaction role menus**, plus the IDs needed for those features.
-- Pudim **does not send DMs**, **does not use voice** and **does not record audio**.
-- Pudim **does not sell** data and **does not use it for ads or profiling**.
-- You can request removal of your data at any time (see section 10).
+* Pudim **reads messages** only to detect commands and mentions of the bot. **It does not store message content** in any database.
+* Pudim only stores **server settings, warnings and reaction role menus**, plus the IDs needed for those features.
+* Pudim **does not send DMs**, **does not use voice** and **does not record audio**.
+* Pudim **does not sell** data and **does not use it for ads or profiling**.
+* You can request removal of your data at any time (see section 10).
 
 ## 1. What data Pudim stores
 
 ### 1.1 Database (MongoDB)
 
-| What is stored | Data | Purpose | Retention |
-| --- | --- | --- | --- |
-| **Server settings** | Server ID, prefix, auto role settings (role ID and whether it is enabled), automatic warning action rules (amount, action type, duration, channel ID) and the warning log channel ID | Making the bot work the way the server configured it | While the server uses the bot, or until a removal request |
-| **Warnings** | Server ID, warned member ID, moderator ID, **reason written by the moderator**, warning ID and date | Moderation history (`warn`, `warnings`, `unwarn`, `clearwarns`) and automatic actions | Until a moderator removes the warning (`unwarn` or `clearwarns`), or until a removal request |
-| **Reaction role menus** | Message ID, channel ID, server ID, ID of whoever created the menu, emojis used and which role each emoji grants | Granting roles when someone reacts | Until the menu is removed by the server, or until a removal request |
-| **Language preference** | User ID and chosen language (default: Brazilian Portuguese) | Replying in the right language | Until a removal request |
+| What is stored          | Data                                                                                                                                                                                 | Purpose                                                                               | Retention                                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Server settings**     | Server ID, prefix, auto role settings (role ID and whether it is enabled), automatic warning action rules (amount, action type, duration, channel ID) and the warning log channel ID | Making the bot work the way the server configured it                                  | While the server uses the bot, or until a removal request                                    |
+| **Warnings**            | Server ID, warned member ID, moderator ID, **reason written by the moderator**, warning ID and date                                                                                  | Moderation history (`warn`, `warnings`, `unwarn`, `clearwarns`) and automatic actions | Until a moderator removes the warning (`unwarn` or `clearwarns`), or until a removal request |
+| **Reaction role menus** | Message ID, channel ID, server ID, ID of whoever created the menu, emojis used and which role each emoji grants                                                                      | Granting roles when someone reacts                                                    | Until the menu is removed by the server, or until a removal request                          |
+| **Language preference** | User ID and chosen language (default: Brazilian Portuguese)                                                                                                                          | Replying in the right language                                                        | Until a removal request                                                                      |
 
 ### 1.2 Temporary cache (Valkey/Redis)
 
 Pudim uses a cache to respond faster. It holds copies of data that already exists in the database, **for a short time**:
 
-| Cached data | Duration |
-| --- | --- |
-| Server prefix | 1 hour |
-| User language | 5 minutes |
+| Cached data            | Duration                                                     |
+| ---------------------- | ------------------------------------------------------------ |
+| Server prefix          | 1 hour                                                       |
+| User language          | 5 minutes                                                    |
 | Interactive menu state | 10 minutes (temporary menus) or 1 hour (reaction role menus) |
 
 The cache is also used to tell the bot that a server's prefix has changed.
@@ -48,20 +48,20 @@ To work, Pudim receives information from Fluxer, such as the ID and username of 
 
 ## 2. Message content
 
-- Pudim reads incoming messages to know whether they start with a command prefix or mention the bot. After that, the message is **not saved**.
-- Messages are **not stored** in any database or sent to external services.
-- **Exception, the `purge` command:** when bulk-deleting messages, Pudim reads the selected messages and builds a plain-text backup file (date, username, content and attachment links). That file is **sent in the same channel** where the command was used, for the moderation team. **Pudim does not keep a copy of that file.** From then on, the file is under the server's control, and anyone with access to the channel may see it.
-- **`massrole` command:** to apply a role to many members, Pudim temporarily fetches the server's member list (up to 1000). The list is used only while the command runs. **It is not saved, exported or shared.**
+* Pudim reads incoming messages to know whether they start with a command prefix or mention the bot. After that, the message is **not saved**.
+* Messages are **not stored** in any database or sent to external services.
+* **Exception, the `purge` command:** when bulk-deleting messages, Pudim reads the selected messages and builds a plain-text backup file (date, username, content and attachment links). That file is **sent in the same channel** where the command was used, for the moderation team. **Pudim does not keep a copy of that file.** From then on, the file is under the server's control, and anyone with access to the channel may see it.
+* **`massrole` command:** to apply a role to many members, Pudim temporarily fetches the server's member list (up to 1000). The list is used only while the command runs. **It is not saved, exported or shared.**
 
 ## 3. Server join and leave log
 
 When Pudim joins or leaves a server, it sends a notice to a **private developer log channel** containing:
 
-- the server name and ID;
-- the member count;
-- the server creation date;
-- the server owner's username and ID;
-- the server icon.
+* the server name and ID;
+* the member count;
+* the server creation date;
+* the server owner's username and ID;
+* the server icon.
 
 This is used to track the bot's growth and investigate problems. The notice goes to the Pudim team, **not** to your server.
 
@@ -69,11 +69,11 @@ This is used to track the bot's growth and investigate problems. The notice goes
 
 Pudim connects to the services below. **None of them receives messages, user IDs or server data.**
 
-| Service | Purpose | What is sent |
-| --- | --- | --- |
-| **Fluxer** (API and gateway) | Running the bot on the platform | What is needed to run commands (see section 1.3) |
-| **nekos.best** (`nekos.best/api/v2`) | Fetching animated images for interaction commands (`hug`, `pat`, `slap`, etc.) | Only the action name. As with any internet connection, the service can see the IP of the server hosting the bot |
-| **Hosting (Discloud)** and **database and cache providers** | Keeping the bot online and storing the data in section 1 | The data in section 1, stored on their infrastructure |
+| Service                                                     | Purpose                                                                        | What is sent                                                                                                    |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| **Fluxer** (API and gateway)                                | Running the bot on the platform                                                | What is needed to run commands (see section 1.3)                                                                |
+| **nekos.best** (`nekos.best/api/v2`)                        | Fetching animated images for interaction commands (`hug`, `pat`, `slap`, etc.) | Only the action name. As with any internet connection, the service can see the IP of the server hosting the bot |
+| **Hosting (Discloud)** and **database and cache providers** | Keeping the bot online and storing the data in section 1                       | The data in section 1, stored on their infrastructure                                                           |
 
 If we start using another external service, this list will be updated.
 
@@ -87,18 +87,18 @@ Pudim **does not send DMs** and does not contact users on its own. It only repli
 
 ## 7. What we do not do
 
-- We do not sell, rent or share data with advertisers.
-- We do not build user profiles or track you across servers.
-- We do not export member lists or scrape community data.
-- We do not collect sensitive data on purpose. However, the **reason for a warning** is free text written by moderators. Please ask your server's moderators not to put sensitive personal data in it.
+* We do not sell, rent or share data with advertisers.
+* We do not build user profiles or track you across servers.
+* We do not export member lists or scrape community data.
+* We do not collect sensitive data on purpose. However, the **reason for a warning** is free text written by moderators. Please ask your server's moderators not to put sensitive personal data in it.
 
 ## 8. Sharing
 
 Your data only leaves Pudim in the following situations:
 
-- to the infrastructure providers in section 4, which store the data on our behalf;
-- when required by law or by a competent authority;
-- to protect the security of the bot, users or servers against abuse.
+* to the infrastructure providers in section 4, which store the data on our behalf;
+* when required by law or by a competent authority;
+* to protect the security of the bot, users or servers against abuse.
 
 Inside a server, warnings and moderation logs may be seen by anyone with access to that server's moderation channels and commands.
 
@@ -110,10 +110,10 @@ We use reasonable measures to protect data: the bot token and database credentia
 
 You may request:
 
-- **access** to the data we hold about you;
-- **correction** of incorrect data;
-- **deletion** of data, such as warnings you received, your language preference or menus you created;
-- clarification about how we handle your data.
+* **access** to the data we hold about you;
+* **correction** of incorrect data;
+* **deletion** of data, such as warnings you received, your language preference or menus you created;
+* clarification about how we handle your data.
 
 **Server owners** may also request deletion of all of the server's settings.
 
@@ -133,4 +133,4 @@ We may update this policy. The "Last updated" date at the top shows the current 
 
 ## 13. Contact
 
-- **Support server:** <https://fluxer.gg/Ka4CXOqj>
+* **Support server:** [https://fluxer.gg/Ka4CXOqj](https://fluxer.gg/Ka4CXOqj)

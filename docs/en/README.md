@@ -1,5 +1,5 @@
 ---
-cover: ../../assets/pudim-banner.png
+cover: .gitbook/assets/pudim-banner.png
 coverY: 0
 ---
 
@@ -11,7 +11,7 @@ Here you'll find everything you need to add Pudim to your server and get the mos
 
 ## Getting started
 
-1. **Add Pudim to your server** using the [invite link](https://web.fluxer.app/oauth2/authorize?client_id=1562641741457141760&scope=bot&permissions=1099914669142).
+1. **Add Pudim to your server** using the [invite link](https://web.fluxer.app/oauth2/authorize?client_id=1562641741457141760\&scope=bot\&permissions=1099914669142).
 2. **Run `p.help`** to see all commands. The default prefix is `p.`.
 3. **Change the prefix** if you like, with `p.setprefix`.
 4. Need help? Join the [support server](https://fluxer.gg/Ka4CXOqj).
@@ -24,13 +24,13 @@ You can also mention me (`@Pudim`) to see your server's prefix.
 
 Tools to keep your community safe and organized.
 
-| Feature | Commands |
-| --- | --- |
-| Punishments | `ban`, `unban`, `softban`, `massban`, `kick`, `mute`, `unmute` |
-| Warnings | `warn`, `warnings`, `unwarn`, `clearwarns` |
-| Channels | `purge`, `lock`, `unlock`, `slowmode` |
-| Roles | `addrole`, `removerole`, `massrole`, `autorole`, `reactionroles` |
-| Members | `nick` |
+| Feature     | Commands                                                         |
+| ----------- | ---------------------------------------------------------------- |
+| Punishments | `ban`, `unban`, `softban`, `massban`, `kick`, `mute`, `unmute`   |
+| Warnings    | `warn`, `warnings`, `unwarn`, `clearwarns`                       |
+| Channels    | `purge`, `lock`, `unlock`, `slowmode`                            |
+| Roles       | `addrole`, `removerole`, `massrole`, `autorole`, `reactionroles` |
+| Members     | `nick`                                                           |
 
 ### Utility
 
@@ -50,8 +50,8 @@ For the role commands to work, Pudim's role must be **above** the roles it will 
 
 We're transparent about the data we use. Before using the bot, please read:
 
-- [Terms of Service](legal/service.md)
-- [Privacy Policy](legal/privacy.md)
+* [Terms of Service](legal/service.md)
+* [Privacy Policy](legal/privacy.md)
 
 In short: Pudim reads messages only to detect commands, **does not store their content**, does not send DMs and does not use voice.
 
