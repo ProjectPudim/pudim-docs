@@ -1,0 +1,20 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: Pudim
+  structure:
+    - type: space
+      key: docs-pt
+      title: Português (BR)
+      path: br
+      default: true
+      content:
+        directory: ./docs/br
+        language: pt-br
+    - type: space
+      key: docs-en
+      title: English
+      path: en
+      content:
+        directory: ./docs/en
+        language: en
+
